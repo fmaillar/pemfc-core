@@ -22,6 +22,7 @@ with open(os.path.join('tests', 'summary.json')) as file:
 def test_global_results():
     g_data, l_data, sim = main(ref_settings)
     results = g_data[0]
+    assert results['Convergence']['value']
     test_result = round(results['Stack Voltage']['value'], 3)
     ref_result = round(ref_results['Stack Voltage']['value'], 3)
     assert test_result == ref_result

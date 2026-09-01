@@ -7,7 +7,7 @@
         "calc_current": true
     },
     "simulation": {
-        "maximum_iteration": 100,
+        "maximum_iteration": 500,
         "minimum_iteration": 3,
         "convergence_criteria": 1e-07,
         "underrelaxation_factor": 0.7,
@@ -46,8 +46,7 @@
             2.0
         ],
         "bpp": {
-            "thickness":
-                    0.002,
+            "thickness": 0.002,
             "electrical_conductivity": [
                 60000.0,
                 60000.0
@@ -58,8 +57,7 @@
             ]
         },
         "gde": {
-            "porosity":
-                    0.8,
+            "porosity": 0.8,
             "electrical_conductivity": [
                 500.0,
                 500.0
@@ -67,10 +65,10 @@
             "thermal_conductivity": [
                 1.0,
                 1.0
-            ]
+            ],
+            "thickness": 0.0002
         },
-        "electrochemistry":
-        {
+        "electrochemistry": {
             "charge_number": 4.0,
             "tafel_slope": 0.035,
             "prot_con_cl": 3.5,
@@ -106,7 +104,6 @@
                 "humidity": 0.5
             },
             "cross_sectional_shape": "rectangular",
-            "rib_width": 0.001,
             "base_width": 0.0008,
             "length": 0.5,
             "p_out": 101325.0,
@@ -154,7 +151,8 @@
                 "bend_friction_factor": 0.0,
                 "constant_friction_factor": 0.4
             }
-        }
+        },
+        "rib_width": 0.001
     },
     "anode": {
         "name": "Anode",
@@ -166,8 +164,7 @@
             0.0
         ],
         "bpp": {
-            "thickness":
-                    0.002,
+            "thickness": 0.002,
             "electrical_conductivity": [
                 60000.0,
                 60000.0
@@ -178,8 +175,7 @@
             ]
         },
         "gde": {
-            "porosity":
-                    0.8,
+            "porosity": 0.8,
             "electrical_conductivity": [
                 500.0,
                 500.0
@@ -187,10 +183,10 @@
             "thermal_conductivity": [
                 1.0,
                 1.0
-            ]
+            ],
+            "thickness": 0.0002
         },
-        "electrochemistry":
-        {
+        "electrochemistry": {
             "charge_number": 4.0,
             "tafel_slope": 0.035,
             "prot_con_cl": 3.5,
@@ -226,7 +222,6 @@
                 "humidity": 0.5
             },
             "cross_sectional_shape": "rectangular",
-            "rib_width": 0.001,
             "base_width": 0.0008,
             "length": 0.5,
             "p_out": 101325.0,
@@ -274,7 +269,8 @@
                 "bend_friction_factor": 0.0,
                 "constant_friction_factor": 0.4
             }
-        }
+        },
+        "rib_width": 0.001
     },
     "coolant_channel": {
         "name": "Coolant Channel",
@@ -343,9 +339,13 @@
         "coolant_control": "Temperature Difference"
     },
     "output": {
-        "save_csv": false,
-        "save_plot": false,
         "show_loss": false,
-        "directory": "../output"
+        "directory": "../output",
+        "save": {
+            "csv": false,
+            "plot": false,
+            "settings": false,
+            "summary": false
+        }
     }
 }
