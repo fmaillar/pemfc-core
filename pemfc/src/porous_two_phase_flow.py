@@ -1,22 +1,11 @@
 import numpy as np
-import json
-import os
 from porous_two_phase_flow import porous_layer as pl, saturation_model as sm
-from porous_two_phase_flow import helper_functions as hf
 
-from .fluid import (fluid as fl, diffusion_coefficient as dc,
-                    evaporation_model as evap)
-from . import transport_layer as tl
+from .fluid import (fluid as fl, evaporation_model as evap)
 from . import discretization as dsct
-from . import linear_system as ls
-from . import global_functions as gf
-from . import matrix_functions as mf
 from . import global_state as gs
 from . import diffusion_transport as dt
 
-import matplotlib.pyplot as plt
-import matplotlib
-from mpl_toolkits.axes_grid1 import make_axes_locatable
 np.set_printoptions(legacy="1.21")
 
 

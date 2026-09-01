@@ -1,6 +1,4 @@
 # general imports
-import numpy as np
-from abc import ABC, abstractmethod
 
 # local modul imports
 from . import channel

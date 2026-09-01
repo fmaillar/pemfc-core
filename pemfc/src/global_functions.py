@@ -228,7 +228,6 @@ def calc_temp_heat_transfer(wall_temp, fluid_temp, capacity_rate, heat_coeff,
                             flow_direction):
     wall_temp = np.asarray(wall_temp)
     fluid_temp = np.asarray(fluid_temp)
-    fluid_temp_old = np.copy(fluid_temp)
     capacity_rate = np.asarray(capacity_rate)
     heat_coeff = np.asarray(heat_coeff)
     assert capacity_rate.shape == wall_temp.shape
@@ -326,7 +325,6 @@ def calc_rel_error(array1, array2):
     :return: scalar sum of relative squared errors
     """
     array_diff = array1 - array2
-    average_array = (array1 + array2) / 2.0
     return np.inner(array_diff, array_diff) / len(array1)
 
 

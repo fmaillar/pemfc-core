@@ -72,7 +72,7 @@ class Stack(OutputObject1D):
                     settings['simulation'].get('calc_two_phase_flow', False))
 
         # Initialize fluid channels
-        fluids, channels = [], []
+        channels = []
         for i in range(len(half_cell_dicts)):
             temp_in = manifold_in_dicts[i]['temp_in']
             p_out = manifold_out_dicts[i]['p_out']
