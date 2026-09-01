@@ -129,17 +129,18 @@ class OutputObject(ABC):
 
     def set_plot_axis(self, plot_axis, relative=False):
         for key in self.single_print_data:
+            new_plot_axis = plot_axis
             if relative:
-                plot_axis = (
-                    self.single_print_data[key]['plot_axis'] + plot_axis)
-            self.single_print_data[key]['plot_axis'] = plot_axis
+                new_plot_axis += self.single_print_data[key]['plot_axis']
+            self.single_print_data[key]['plot_axis'] = new_plot_axis
         for key in self.multi_print_data:
             for sub_key in self.multi_print_data[key]:
+                new_plot_axis = plot_axis
                 if relative:
-                    plot_axis = (
-                        self.multi_print_data[key][sub_key]['plot_axis']
-                        + plot_axis)
-                self.multi_print_data[key][sub_key]['plot_axis'] = plot_axis
+                    new_plot_axis += self.multi_print_data[key][sub_key][
+                        'plot_axis']
+                self.multi_print_data[key][sub_key][
+                    'plot_axis'] = new_plot_axis
 
     # @classmethod
     # def cluster_objects(cls):
@@ -164,4 +165,3 @@ class OutputObject2D(OutputObject):
                        multi_data=False, **kwargs):
         super().add_print_data(data_array, name, units, sub_names=sub_names,
                                multi_data=multi_data, plot_axis=-2, **kwargs)
-
