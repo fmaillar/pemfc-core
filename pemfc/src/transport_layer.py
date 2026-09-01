@@ -2,7 +2,6 @@
 import numpy as np
 from abc import ABC, abstractmethod
 # from collections.abc import Callable
-from collections.abc import Iterable
 # Local modul imports
 from . import output_object as oo
 from . import discretization as dsct

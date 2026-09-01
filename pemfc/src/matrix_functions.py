@@ -8,7 +8,7 @@ from scipy import sparse
 # from . import global_functions as g_func
 
 if TYPE_CHECKING:
-    from cell import Cell
+    pass
 
 
 def tile_add_overlap(array, n, m=1):
@@ -356,7 +356,6 @@ def set_axis_values(array: np.ndarray, values: np.ndarray,
 def spai(matrix: np.ndarray, m: int):
     """Perform m step of the SPAI iteration."""
     from scipy.sparse import identity
-    from scipy.sparse import diags
     from scipy.sparse.linalg import onenormest
 
     n = matrix.shape[0]

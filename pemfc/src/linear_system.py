@@ -7,7 +7,7 @@ import numpy as np
 # from numpy import linalg
 from scipy import linalg as sp_la
 from scipy import sparse
-from scipy.sparse.linalg import spsolve, cg, gmres
+from scipy.sparse.linalg import spsolve
 from dataclasses import dataclass
 
 # Local module imports
@@ -17,7 +17,6 @@ from . import (
     global_state as gs)
 
 if TYPE_CHECKING:
-    from .stack import Stack
     from .cell import Cell
 
 # import pandas as pd

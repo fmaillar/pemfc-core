@@ -3,6 +3,9 @@
 A reduced-dimensional numerical model developed in Python to simulate the
 performance of PEM fuel cell stacks.
 
+The numerical implementation is platform-independent Python and does not rely
+on precompiled, interpreter-specific binary extensions.
+
 #### Geometric Layout
 
 ![alt text](./data/stack_layout.png "Stack Layout")
@@ -31,22 +34,31 @@ performance of PEM fuel cell stacks.
   - cathodic gas diffusion electrode and membrane (GDE-Mem, Cat)
   - cathodic bipolar plate and gas diffusion electrode (BPP-GDE, Cat)
   
-# Minimum Requirements
+# Installation
 
-- NumPy 1.14.3
-- SciPy 1.1.0
-- Matplotlib 2.2.2
+PEMFC requires Python 3.9 or newer. Runtime dependencies, including the pinned
+two-phase-flow model, are declared in `pyproject.toml` and installed with the
+package:
+
+```bash
+python -m pip install .
+```
+
+For development and testing, install the test extra:
+
+```bash
+python -m pip install -e ".[test]"
+python -m pytest
+```
 
 # Usage
 
-Download the repository, review settings in the pemfc/settings/settings.json
-file. Then execute
+Review the settings in `pemfc/settings/settings.json`, then execute:
 
-```python
+```bash
 python main_app.py
 ```
 
-with your Python interpreter.
 If not specified otherwise, a folder called "output" will be created at the end
 of a simulation run, which contains the results in various data files and
 plots, if specified in the settings file (bottom).
@@ -57,7 +69,7 @@ plots, if specified in the settings file (bottom).
 
 # Citing the Model
 
-This model is versioned using Zenodo:
+The archived v1.0.0 research release is available through Zenodo:
 [![DOI](https://zenodo.org/badge/448911658.svg)](https://zenodo.org/badge/latestdoi/448911658)
 
 If you use this tool as part of a scholarly work, please cite using:

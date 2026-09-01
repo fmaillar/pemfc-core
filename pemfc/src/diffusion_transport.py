@@ -1,23 +1,14 @@
 from abc import ABC, abstractmethod
 import numpy as np
-import json
-import os
-import matplotlib
-import matplotlib.pyplot as plt
-from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 
-from .fluid import (fluid as fl, diffusion_coefficient as dc,
-                    evaporation_model as evap)
+from .fluid import (fluid as fl, diffusion_coefficient as dc)
 from . import transport_layer as tl
 from . import discretization as dsct
 from . import linear_system as ls
 from . import global_functions as gf
 from . import matrix_functions as mf
-from . import global_state as gs
-from . import porous_two_phase_flow as p2pf
 from . import grid_rescaler as gr
-from porous_two_phase_flow import porous_layer as pl
 
 
 # --- Performance toggle ----------------------------------------------------

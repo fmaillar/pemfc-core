@@ -2,7 +2,6 @@
 # import sys
 import numpy as np
 from abc import ABC, abstractmethod
-import copy
 import types
 
 # Local module imports
@@ -261,7 +260,7 @@ class DiscreteFluid(OutputObject1D, ABC):
                     raise TypeError(
                         'argument array must be of type numpy.ndarray')
             else:
-                ValueError('only same dimensions can be rescaled')
+                raise ValueError('only same dimensions can be rescaled')
 
 
 class ConstantFluid(DiscreteFluid):

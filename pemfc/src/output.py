@@ -8,7 +8,6 @@ import sys
 import matplotlib.pyplot as plt
 import timeit
 import json
-import dataclasses as dc
 from dataclasses import dataclass
 from json import JSONEncoder
 
@@ -215,7 +214,8 @@ class Output:
                                 linestyle=linestyles[j],
                                 color=colors[i])
             else:
-                NotImplementedError('y-array are limited to three dimensions')
+                raise NotImplementedError(
+                    'y arrays are limited to three dimensions')
 
         ax.grid(True)
         ax.use_sticky_edges = False
