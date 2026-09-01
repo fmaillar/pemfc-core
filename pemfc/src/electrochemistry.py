@@ -1,13 +1,11 @@
 # General imports
 from abc import ABC
-import copy
 import numpy as np
 from scipy import optimize
 
 # local module imports
-from . import interpolation as ip, constants, channel as chl
+from . import constants
 from . import discretization as dsct
-from . import global_state as gs
 
 
 class ElectrochemistryModel(ABC):
