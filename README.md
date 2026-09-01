@@ -3,6 +3,9 @@
 A reduced-dimensional numerical model developed in Python to simulate the
 performance of PEM fuel cell stacks.
 
+The numerical implementation is platform-independent Python and does not rely
+on precompiled, interpreter-specific binary extensions.
+
 #### Geometric Layout
 
 ![alt text](./data/stack_layout.png "Stack Layout")

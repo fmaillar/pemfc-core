@@ -7,11 +7,6 @@ from abc import ABC, abstractmethod
 from . import interpolation as ip, global_functions as g_func, \
     flow_resistance as fr, output_object as oo, global_state as gs
 from .fluid import fluid as fluids, evaporation_model as evap
-try:
-    import cython.channel_heat_transfer as cht
-    CHT_FOUND = True
-except ModuleNotFoundError:
-    CHT_FOUND = False
 
 
 class Channel(oo.OutputObject1D, ABC):
@@ -451,24 +446,9 @@ class Channel(oo.OutputObject1D, ABC):
                 wall_temp = g_func.full(self.temp_ele.shape, wall_temp)
             elif wall_temp.shape != self.temp_ele.shape:
                 raise ValueError('wall temperature array must be element-based')
-            if CHT_FOUND:
-                fluid_temp, heat = \
-                    cht.calc_heat_transfer(wall_temp, self.temperature,
-                                           g_fluid, self.k_coeff,
-                                           self.flow_direction)
-            else:
-                fluid_temp, heat = \
-                    g_func.calc_temp_heat_transfer(wall_temp, self.temperature,
-                                                   g_fluid, self.k_coeff,
-                                                   self.flow_direction)
-            # fluid_temp, heat = \
-            #     cht.calc_heat_transfer(wall_temp, self.temperature,
-            #                            g_fluid, self.k_coeff,
-            #                            self.flow_direction)
-            # fluid_temp, heat = \
-            #     g_func.calc_temp_heat_transfer(wall_temp, self.temperature,
-            #                                    g_fluid, self.k_coeff,
-            #                                    self.flow_direction)
+            fluid_temp, heat = g_func.calc_temp_heat_transfer(
+                wall_temp, self.temperature, g_fluid, self.k_coeff,
+                self.flow_direction)
 
             self.wall_temp[:] = wall_temp
             self.heat[:] = heat
