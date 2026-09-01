@@ -1,1 +1,1 @@
-include pemfc/settings/settings.json
+recursive-include pemfc/settings *.json
