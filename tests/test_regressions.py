@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 from pemfc.src.channel import Channel, IncompressibleFluidChannel
 from pemfc.src.output_object import OutputObject1D
@@ -46,6 +47,36 @@ def test_relative_plot_axis_does_not_accumulate_between_variables():
 
     assert output.single_print_data['first']['plot_axis'] == 1
     assert output.single_print_data['second']['plot_axis'] == 1
+
+
+def test_print_variables_resolve_public_nested_attributes():
+    output = OutputFixture('fixture')
+    output.values = np.array([1.0, 2.0])
+    output.labels = ['first', 'second']
+
+    output.add_print_variables({
+        'names': ['values'],
+        'units': ['-'],
+        'sub_names': ['self.labels'],
+    })
+
+    assert list(output.multi_print_data['Values']) == output.labels
+
+
+@pytest.mark.parametrize(
+    'path',
+    ["__class__", "values[0]", "values.__class__", "open('/tmp/file')"],
+)
+def test_print_variable_paths_reject_expressions_and_private_attributes(path):
+    output = OutputFixture('fixture')
+    output.values = np.array([1.0])
+
+    with pytest.raises(ValueError, match='attribute path'):
+        output.add_print_variables({
+            'names': [path],
+            'units': ['-'],
+            'sub_names': ['None'],
+        })
 
 
 def test_forward_mix_temperature_uses_local_fluid_capacity_rate():
