@@ -1,6 +1,7 @@
 import string
 import weakref
 import copy as cp
+from operator import attrgetter
 from abc import ABC, abstractmethod
 
 
@@ -103,14 +104,30 @@ class OutputObject(ABC):
 
     def add_print_variables(self, print_variables, **kwargs):
         for i, name in enumerate(print_variables['names']):
-            attr = eval('self.' + name)
+            attr = self._resolve_attribute_path(name)
             description = string.capwords(name.replace('_', ' '))
             units = print_variables['units'][i]
             sub_names = print_variables.get('sub_names', None)
             if sub_names is not None:
-                sub_names = eval(sub_names[i])
+                sub_names = sub_names[i]
+                if sub_names == 'None':
+                    sub_names = None
+                elif isinstance(sub_names, str):
+                    if not sub_names.startswith('self.'):
+                        raise ValueError(
+                            'sub_names attribute paths must start with self.')
+                    sub_names = self._resolve_attribute_path(sub_names[5:])
             self.add_print_data(attr, description, units,
                                 sub_names=sub_names, **kwargs)
+
+    def _resolve_attribute_path(self, path):
+        if not isinstance(path, str) or not path:
+            raise ValueError('attribute path must be a non-empty string')
+        parts = path.split('.')
+        if any(not part.isidentifier() or part.startswith('_')
+               for part in parts):
+            raise ValueError('attribute path must contain public attributes')
+        return attrgetter(path)(self)
 
     @staticmethod
     def combine_print_variables(dict_a, dict_b):
