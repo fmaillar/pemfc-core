@@ -7,7 +7,6 @@ from collections.abc import Iterable
 from . import output_object as oo
 from . import discretization as dsct
 from . import matrix_functions as mf
-from typing import Self
 
 
 class TransportLayer(oo.OutputObject2D, ABC):
@@ -147,13 +146,13 @@ class TransportLayer(oo.OutputObject2D, ABC):
 
     def reduce_conductance(self, factor, indices, axis=0):
         if axis == 0:
-            for conductance in self.conductance:
+            for conductance in self.conductance.values():
                 conductance[indices, :, :] *= factor
         elif axis == 1:
-            for conductance in self.conductance:
+            for conductance in self.conductance.values():
                 conductance[:, indices, :] *= factor
         elif axis in (2, -1):
-            for conductance in self.conductance:
+            for conductance in self.conductance.values():
                 conductance[:, :, indices] *= factor
         else:
             raise ValueError('only three-dimensional arrays supported')
@@ -164,12 +163,15 @@ class TransportLayer(oo.OutputObject2D, ABC):
         conductance_a = np.asarray(conductance_a)
         conductance_b = np.asarray(conductance_b)
         if mode == 'serial':
-            inf_array = np.ones(conductance_a.shape) * 1e16
+            inf_array_a = np.full(conductance_a.shape, np.inf)
+            inf_array_b = np.full(conductance_b.shape, np.inf)
             zero_array = np.zeros(conductance_a.shape)
             resistance_a = np.divide(
-                1.0, conductance_a, out=inf_array, where=conductance_a != 0.0)
+                1.0, conductance_a, out=inf_array_a,
+                where=conductance_a != 0.0)
             resistance_b = np.divide(
-                1.0, conductance_b, out=inf_array, where=conductance_a != 0.0)
+                1.0, conductance_b, out=inf_array_b,
+                where=conductance_b != 0.0)
             resistance_sum = resistance_a + resistance_b
             return np.divide(
                 1.0, resistance_sum, out=zero_array,

@@ -224,10 +224,14 @@ class PhaseChangeProperties(PolynomialProperties):
             raise ValueError('relative humidity must not exceed 1.0')
         molar_fraction_phase_change_species = \
             humidity * self.calc_saturation_pressure(temperature) / pressure
-        humid_composition = np.asarray(dry_molar_composition)
+        humid_composition = np.array(dry_molar_composition, dtype=float,
+                                     copy=True)
         humid_composition[id_pc] = 0.0
         humid_composition /= np.sum(humid_composition, axis=0)
         humid_composition *= (1.0 - molar_fraction_phase_change_species)
+        if humid_composition[id_pc].ndim == 0:
+            molar_fraction_phase_change_species = np.asarray(
+                molar_fraction_phase_change_species).item()
         humid_composition[id_pc] = molar_fraction_phase_change_species
         return humid_composition
 

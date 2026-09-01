@@ -503,7 +503,7 @@ class Channel(oo.OutputObject1D, ABC):
                     * (enthalpy_in + self.heat + enthalpy_source)
             else:
                 enthalpy_in = self.g_fluid[:-1] * self.temperature[:-1]
-                self.temperature[1:] = 1.0 / self.g_fluid[:1] \
+                self.temperature[1:] = 1.0 / self.g_fluid[1:] \
                     * (enthalpy_in + self.heat + enthalpy_source)
             self.temp_ele[:] = ip.interpolate_1d(self.temperature)
 

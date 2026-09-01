@@ -903,21 +903,22 @@ class TemperatureSystem(StackLinearSystem):
                         factors[1] += 0.5
                     layer_ids = [0, -1]
                 else:
-                    cell_cool_channels = [self.cool_channels[i - 1],
-                                          self.cool_channels[i]]
-                    n_gas_channels = [self.n_ano_channels, self.n_cat_channels]
-                    factors = [0.5, 0.5]
-                    layer_ids = [0, -1]
-                    if self.cells[i].first_cell:
-                        cell_cool_channels.pop(0)
-                        factors.pop(0)
-                        layer_ids.pop(0)
-                        n_gas_channels.pop(0)
-                    if self.cells[i].last_cell:
-                        cell_cool_channels.pop(1)
-                        factors.pop(1)
-                        layer_ids.pop(1)
-                        n_gas_channels.pop(1)
+                    cell_cool_channels = []
+                    n_gas_channels = []
+                    factors = []
+                    layer_ids = []
+
+                    if not self.cells[i].first_cell:
+                        cell_cool_channels.append(self.cool_channels[i - 1])
+                        n_gas_channels.append(self.n_ano_channels)
+                        factors.append(0.5)
+                        layer_ids.append(0)
+
+                    if not self.cells[i].last_cell:
+                        cell_cool_channels.append(self.cool_channels[i])
+                        n_gas_channels.append(self.n_cat_channels)
+                        factors.append(0.5)
+                        layer_ids.append(-1)
                 for j in range(len(cell_cool_channels)):
                     source = - cell_cool_channels[j].k_coeff
                     source *= self.n_cell_cool_channels / n_gas_channels[j]
@@ -1061,21 +1062,22 @@ class TemperatureSystem(StackLinearSystem):
                         factors[1] += 0.5
                     layer_ids = [0, -1]
                 else:
-                    cell_cool_channels = [self.cool_channels[i - 1],
-                                          self.cool_channels[i]]
-                    n_gas_channels = [self.n_ano_channels, self.n_cat_channels]
-                    factors = [0.5, 0.5]
-                    layer_ids = [0, -1]
-                    if self.cells[i].first_cell:
-                        cell_cool_channels.pop(0)
-                        factors.pop(0)
-                        layer_ids.pop(0)
-                        n_gas_channels.pop(0)
-                    if self.cells[i].last_cell:
-                        cell_cool_channels.pop(1)
-                        factors.pop(1)
-                        layer_ids.pop(1)
-                        n_gas_channels.pop(1)
+                    cell_cool_channels = []
+                    n_gas_channels = []
+                    factors = []
+                    layer_ids = []
+
+                    if not self.cells[i].first_cell:
+                        cell_cool_channels.append(self.cool_channels[i - 1])
+                        n_gas_channels.append(self.n_ano_channels)
+                        factors.append(0.5)
+                        layer_ids.append(0)
+
+                    if not self.cells[i].last_cell:
+                        cell_cool_channels.append(self.cool_channels[i])
+                        n_gas_channels.append(self.n_cat_channels)
+                        factors.append(0.5)
+                        layer_ids.append(-1)
                 for j, cool_chl in enumerate(cell_cool_channels):
                     source = cool_chl.k_coeff * cool_chl.temp_ele
                     source *= self.n_cell_cool_channels / n_gas_channels[j]
