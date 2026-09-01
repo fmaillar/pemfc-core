@@ -1,5 +1,6 @@
 import os
 import json
+import numpy as np
 from main_app import main
 
 # load settings
@@ -23,6 +24,7 @@ def test_global_results():
     g_data, l_data, sim = main(ref_settings)
     results = g_data[0]
     assert results['Convergence']['value']
-    test_result = round(results['Stack Voltage']['value'], 3)
-    ref_result = round(ref_results['Stack Voltage']['value'], 3)
-    assert test_result == ref_result
+    for name, reference in ref_results.items():
+        assert results[name]['units'] == reference['units']
+        np.testing.assert_allclose(
+            results[name]['value'], reference['value'], rtol=1e-6)

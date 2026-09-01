@@ -99,23 +99,22 @@ def add_source(base_values, source, direction=1, tri_mtx=None, zero_limit=True):
     else:
         raise ValueError('parameter direction must be either 1 or -1')
 
-    # Correct sources and flow for lower limit (zero)
     result_source = np.copy(source)
     if zero_limit:
-        id_negative = np.argwhere(result < 0.0)
-        if np.any(id_negative):
-            if direction == 1:
-                id_negative_src = id_negative - 1
-                id_last_positive = id_negative[0] - 1
-                id_last_nonzero_src = id_last_positive
-            else:
-                id_negative_src = id_negative
-                id_last_positive = id_negative[-1] + 1
-                id_last_nonzero_src = id_last_positive - 1
-
-            result_source[id_last_nonzero_src] = result[id_last_positive]
-            result_source[id_negative_src] = 0.0
-            result[id_negative] = 0.0
+        if direction == 1:
+            result[0] = base_values[0]
+            for i in range(n):
+                base_change = base_values[i + 1] - base_values[i]
+                available = result[i] + base_change
+                result[i + 1] = max(available + source[i], 0.0)
+                result_source[i] = result[i + 1] - available
+        else:
+            result[-1] = base_values[-1]
+            for i in range(n - 1, -1, -1):
+                base_change = base_values[i] - base_values[i + 1]
+                available = result[i + 1] + base_change
+                result[i] = max(available + source[i], 0.0)
+                result_source[i] = result[i] - available
     return result, result_source
 
 
