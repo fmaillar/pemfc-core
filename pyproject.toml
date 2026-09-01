@@ -23,7 +23,7 @@ dependencies = [
     "numpy>=1.26.3",
     "scipy>=1.11.4",
     "setuptools>=68.2.2",
-    "porous_two_phase_flow @ git+https://github.com/lufire/PorousTwoPhaseFlow.git@master"
+    "porous_two_phase_flow @ git+https://github.com/lufire/PorousTwoPhaseFlow.git@a5d6f9a41e49e2f0a49fa8ccb35f444cb87c8949"
 ]
 
 # Auto-discover packages (like find_packages)
