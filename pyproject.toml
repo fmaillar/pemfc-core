@@ -34,7 +34,11 @@ dependencies = [
 test = [
     "build>=1,<2",
     "pytest>=8,<9",
+    "ruff>=0.16,<1",
 ]
+
+[tool.ruff.lint]
+select = ["F401", "F821", "F822", "F823"]
 
 # Auto-discover packages (like find_packages)
 [tool.setuptools.packages.find]

@@ -1,7 +1,6 @@
 import numpy as np
 import pemfc.src.fluid.fluid as fluid
 import pemfc.src.fluid.diffusion_coefficient as diffusion_model
-import time
 
 fluid_dict = \
     {

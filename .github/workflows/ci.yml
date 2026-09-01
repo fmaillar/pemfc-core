@@ -37,6 +37,9 @@ jobs:
       - name: Check package compilation
         run: python -m compileall -q pemfc main_app.py tests
 
+      - name: Run static checks
+        run: python -m ruff check pemfc main_app.py tests
+
       - name: Build distributions
         if: matrix.python-version == '3.13'
         run: python -m build

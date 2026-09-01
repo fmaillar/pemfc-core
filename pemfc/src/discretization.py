@@ -25,11 +25,9 @@ class Discretization(ABC):
                 discretization_dict['shape'] = shape
                 return super(Discretization, cls).__new__(Discretization2D)
             elif len(shape) == 2:
-                shape = shape
                 discretization_dict['shape'] = shape
                 return super(Discretization, cls).__new__(Discretization2D)
             elif len(shape) == 3:
-                shape = shape
                 discretization_dict['shape'] = shape
                 return super(Discretization, cls).__new__(Discretization3D)
             else:

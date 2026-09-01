@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 
 # local modul imports
 from . import interpolation as ip, global_functions as g_func, \
-    flow_resistance as fr, output_object as oo, global_state as gs
+    flow_resistance as fr, output_object as oo
 from .fluid import fluid as fluids, evaporation_model as evap
 
 
@@ -788,9 +788,6 @@ class TwoPhaseMixtureChannel(GasMixtureChannel):
                                     mole_flow_pc_gas, mole_flow_pc_gas_max)
 
         mole_flow_gas[id_pc] = mole_flow_pc_gas
-        mole_fraction = self.fluid.gas.calc_fraction(mole_flow_gas)
-        # humidity = (mole_fraction[id_pc] * self.pressure /
-        #             self.fluid.saturation_pressure)
 
         self.mole_flow_gas[:] = mole_flow_gas
         self.mass_flow_gas[id_pc] = mole_flow_pc_gas * mw_pc
